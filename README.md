@@ -10,7 +10,10 @@ locus is code or data.
 
 To use this repository, you must have a legally-obtained dump of the
 Crystalis data, stored in a file `Crystalis.nes` at the top level
-of the repository.
+of the repository.  You must also copy/link `scripts/git-disasm`
+to somewhere in your `$PATH` so that running `git-disasm` from a bare
+command-line produces an error "No action given" rather than something
+like "command not found".
 
 Then run the following:
 

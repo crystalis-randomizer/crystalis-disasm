@@ -1,0 +1,63 @@
+#!/bin/sh
+
+# Usage: git-disasm --clean|--smudge < input > output
+
+top=$(git rev-parse --show-toplevel)
+
+source=Crystalis.s
+strip="$top/scripts/strip"
+rom=
+action=
+verbose=false
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    (--clean)  action=clean   ;;
+    (--smudge) action=smudge  ;;
+    (-f)       shift          ;;  # ignore for now
+    (*) echo "Bad option: $1" >& 2; exit 1 ;;
+  esac
+  shift
+done
+
+# Pick a default rom if present
+if [ -z "$rom" ]; then
+  rom=$(sha256sum *.nes | grep ^070d22fe | head -1)
+  rom=$(echo ${rom#*48e1a967})
+fi
+
+if [ ! -f "$rom" ]; then
+  echo "Could not find valid rom image with rom $rom" >& 2
+  exit 2
+fi
+
+# Now do the action
+case "$action" in
+  (smudge)
+    "$strip" -r "$rom" /dev/stdin
+    ;;
+  (clean)
+    tmp=$(mktemp -d --tmpdir "$(basename $source).check.XXXX")
+    cat > "$tmp/orig"
+    if ! "$strip" "$tmp/orig" >| "$tmp/clean"; then
+      echo "Strip failed." >& 2
+      exit 5
+    fi
+    if ! "$strip" -r "$rom" "$tmp/clean" >| "$tmp/smudge"; then
+      echo "Infuse failed."
+      # TODO - allow keeping via an env var? (mention this in err)
+      rm -rf "$tmp"
+      exit 6
+    fi
+    if ! diff --ignore-space-change -u "$tmp/orig" "$tmp/smudge"; then
+      echo "Differences found.  Leaving $(basename "$tmp") for comparison" >& 2
+      exit 7
+    fi
+    cat "$tmp/clean"
+    rm -rf "$tmp"
+    ;;
+  (*)
+    echo "No action given" >& 2
+    exit 1
+    ;;
+esac

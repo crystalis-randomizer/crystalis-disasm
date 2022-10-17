@@ -50,7 +50,7 @@ case "$action" in
       exit 6
     fi
     if ! diff --ignore-space-change -u "$tmp/orig" "$tmp/smudge"; then
-      echo "Differences found.  Leaving $(basename "$tmp") for comparison" >& 2
+      echo "Differences found.  Check $tmp for comparison" >& 2
       exit 7
     fi
     cat "$tmp/clean"

@@ -26856,6 +26856,8 @@ EscapedGeneralData
 DataTable_1fb8f
         $1fb8f              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
         $1fb9f              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
+;;; --------------------------------
+;;; UNUSED
         $1fbaf              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
         $1fbbf              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
         $1fbcf              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
@@ -27579,31 +27581,31 @@ InventoryMenu_LoadSelectedPage2
 ;;; --------------------------------
 ;;; Runs when selecting an item in inventory menu? (dropping?)
         $202d0  xx xx xx:   xxx $xxxx
-        $202d3  xx xx:      xxx $xx
-        $202d5  xx xx:      xxx #$xx
-        $202d7  xx:         xxx
+        $202d3  xx xx:      xxx + ; $202d7
+        $202d5  xx xx:       xxx #$xx
++       $202d7  xx:         xxx
         $202d8  xx xx:      xxx $xx
         $202da  xx:         xxx
         $202db  xx xx xx:   xxx $xxxx,x
         $202de  xx:         xxx
-        $202df  xx xx:      xxx $xx
-        $202e1  xx:         xxx
-        $202e2  xx xx:      xxx $xx
-        $202e4  xx xx:      xxx $xx
-        $202e6  xx xx xx:   xxx $xxxx,x
-        $202e9  xx xx:      xxx #$xx
-        $202eb  xx xx xx:   xxx $xxxx,x
-        $202ee  xx xx:      xxx #$xx
-        $202f0  xx xx xx:   xxx $20a9f
-        $202f3  xx xx xx:   xxx $20a5a
-        $202f6  xx xx xx:   xxx $205f6
-        $202f9  xx:         xxx
-        $202fa  xx xx:      xxx #$xx
-        $202fc  xx xx xx:   xxx $xxxx,x
-        $202ff  xx xx:      xxx #$xx ; (spaces)
-        $20301  xx xx xx:   xxx ShowMenuMessage
-;;; --------------------------------
-        $20304  xx xx:      xxx $xx
+        $202df  xx xx:      xxx + ; $20304
+        $202e1  xx:          xxx
+        $202e2  xx xx:       xxx $xx
+        $202e4  xx xx:       xxx + ; $20304
+        $202e6  xx xx xx:    xxx $xxxx,x
+        $202e9  xx xx:       xxx #$xx
+        $202eb  xx xx xx:    xxx $xxxx,x
+        $202ee  xx xx:       xxx #$xx
+        $202f0  xx xx xx:    xxx $20a9f
+        $202f3  xx xx xx:    xxx $20a5a
+        $202f6  xx xx xx:    xxx $205f6
+        $202f9  xx:          xxx
+        $202fa  xx xx:       xxx #$xx
+        $202fc  xx xx xx:    xxx $xxxx,x
+        $202ff  xx xx:       xxx #$xx ; (spaces)
+        $20301  xx xx xx:    xxx ShowMenuMessage
+        ;;;                 -------------------
++       $20304  xx xx:      xxx $xx
         $20306  xx xx xx:   xxx $xxxx,x
         $20309  xx xx xx:   xxx $20660
         $2030c  xx xx:      xxx #$xx
@@ -32619,6 +32621,8 @@ CreditScene_13_AddrTable
         $23f90              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
         $23fa0              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
         $23fb0              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
+;;; ----------------
+;;; UNUSED?
         $23fc0              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
         $23fd0              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
         $23fe0              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx

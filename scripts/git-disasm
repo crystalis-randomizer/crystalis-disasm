@@ -3,6 +3,7 @@
 # Usage: git-disasm --clean|--smudge < input > output
 
 top=$(git rev-parse --show-toplevel)
+cd "$top"
 
 source=Crystalis.s
 strip="$top/scripts/strip"
@@ -20,8 +21,10 @@ while [ $# -gt 0 ]; do
   shift
 done
 
+rom="${source/.s/.nes}"
+
 # Pick a default rom if present
-if [ -z "$rom" ]; then
+if [ ! -f "$rom" ]; then
   rom=$(sha256sum *.nes | grep ^070d22fe | head -1)
   rom=$(echo ${rom#*48e1a967})
 fi
@@ -37,7 +40,7 @@ case "$action" in
     "$strip" -r "$rom" /dev/stdin
     ;;
   (clean)
-    tmp=$(mktemp -d --tmpdir "$(basename $source).check.XXXX")
+    tmp=$(mktemp -d --tmpdir "$(basename $source).check.XXXX" || mktemp -d)
     cat > "$tmp/orig"
     if ! "$strip" "$tmp/orig" >| "$tmp/clean"; then
       echo "Strip failed." >& 2

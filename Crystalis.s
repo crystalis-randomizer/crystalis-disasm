@@ -45626,7 +45626,7 @@ AdHocSpawnObject
         $357b1  xx:           xxx
         $357b2  xx xx:        xxx $xx
         $357b4  xx:           xxx
-        ;; Y looks like %aaaa_ddd0 where aaaa is the low nibble of
+`        ;; Y looks like %aaaa_ddd0 where aaaa is the low nibble of
         ;; the spawned object's $6e0, and xddd is the direction (ignoring
         ;; any upper bit)
         $357b5  xx xx xx:     xxx AdHocSpawnDisplacements,y
@@ -45889,7 +45889,8 @@ CheckDirectionAgainstTerrain
         $35977  xx xx:      xxx $xx
         $35979  xx xx:      xxx $xx
         $3597b  xx xx:      xxx $xx
--       $3597d  xx xx:         xxx $xx
+@DirLoop:
+        $3597d  xx xx:         xxx $xx
         $3597f  xx xx xx:      xxx $35907,y
         $35982  xx xx:         xxx $xx
         $35984  xx xx xx:      xxx $35908,y
@@ -45897,7 +45898,7 @@ CheckDirectionAgainstTerrain
         $35989  xx xx:         xxx $xx
         ;; Stop looking and double-return if we get to a (0,0) pair in the row.
         ;; At this point we're going with whatever was stored in $1c..$1f.
-        $3598b  xx xx:         xxx ++++ ; $359d4
+        $3598b  xx xx:          xxx @BailOut ; $359d4
         $3598d  xx:            xxx
         $3598e  xx:            xxx
         $3598f  xx xx:         xxx $xx
@@ -45930,7 +45931,7 @@ CheckDirectionAgainstTerrain
         ;; waterfall or a solid wall (impassible even flying) then loop back,
         ;; otherwise return with clear carry.
         $359ba  xx xx:            xxx #$xx
-        $359bc  xx xx:          xxx - ; $3597d
+        $359bc  xx xx:          xxx @DirLoop ; $3597d
 +       $359be  xx:             xxx
         ;;                      ---
 	;; Non-player (x != 0), though non-dolphin player comes in in two lines
@@ -45947,9 +45948,10 @@ CheckDirectionAgainstTerrain
         ;; loop - this seems backwards.
         $359d1  xx xx:      xxx - ; $3597d
         $359d3  xx:         xxx
-;;; --------------------------------
+        ;;;                 ---
+@BailOut:
         ;; Looks like some sort of double-return?
-++++    $359d4  xx:         xxx
+        $359d4  xx:         xxx
         $359d5  xx:         xxx
         ;; Copy positions from $1c..$1f into the actual position *and* $34..$37
         $359d6  xx xx:      xxx $xx
@@ -46354,11 +46356,11 @@ SetPlayer340Lower
         $35c5f  xx xx xx:    xxx SwordStabDamage,y
         $35c62  xx xx xx:    xxx $xxxx
         $35c65  xx:          xxx
-;;; --------------------------------
+        ;;                   ---
 DataTable_35c66
         ;; Sword elements
         $35c66              .byte $xx,$xx,$xx,$xx,$xx,$xx
-;;; --------------------------------
+        ;;                  -----------------------------
         ;; Figure out what kind of shot to fire.
 ++      $35c6c  xx xx xx:   xxx EquippedSword
         $35c6f  xx xx:       xxx SwordSwingEnd ; no sword equipped

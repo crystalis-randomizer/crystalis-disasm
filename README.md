@@ -157,6 +157,36 @@ From this point on, you may edit `Crystalis.s` as you see fit.
     * ?? bytes at end of bank $16 ($2df90..$2dfff)
     * ?? bytes at end of bank $17 ($2fbd5..$2fbff)
 
-### Segment $18
+### Segment $18 and $19 ($30000..$33fff)
 
-TODO ...
+* Code (with some interleaved data)
+    * Audio routines, run during IRQ ($30000..$30713)
+* Audio engine tables ($30714..$30c0b)
+* BGM tracks ($30c0c..$33ff0)
+* Unused space
+    * 15 bytes at end ($33ff1..$33fff)
+
+### Segment $1a
+
+* Code (with some interleaved data)
+    * Vector arithmetic ($34409..$344bb)
+    * Palette handling ($34c0e..$34cbf)
+    * HUD display ($34cc0..$34f6d)
+    * Hitbox collisions ($34f6e..$3572c)
+    * Adhoc spawns ($3472d..357d6)
+    * Random numbers ($357d7..$35823)
+    * Vector arithmetic ($34824..$358b8)
+    * Adhoc spawns ($358b9..$358d6)
+    * Movement/terrain ($358d7..$35adf)
+    * MP usage ($35ae8..$35b06)
+    * Boss palettes ($35b07..$35b40)
+    * Player movement/sword ($35b41..$36070)
+* Displacement to direction table ($34000..$343ff)
+* Speed tables ($344bc..$34b7e)
+* Player stats and coin info tables ($34b7f..$34c0d)
+* Powers of two ($35ae0..$35ae7)
+
+* Unused space
+    * TODO VERIFY - 9 bytes after direction table ($34400..$34408)
+
+TODO: 36071..

@@ -140,11 +140,11 @@ From this point on, you may edit `Crystalis.s` as you see fit.
 * Unknown (message?) table ($29767..$29b4d)
 * Ad hoc spawn table ($29c00..$29e7f)
 * Unused space
-    * ?? bytes after message index ($28466..$284ff)
-    * ?? bytes before common words table ($288a5..$288ff)
-    * ?? bytes after reused words table ($2922b..$293ff)
-    * ?? bytes after unknown table ($29b4e..$29bff)
-    * ?? bytes at end ($29e80..$29fff)
+    * 154 bytes after message index ($28466..$284ff)
+    *  91 bytes before common words table ($288a5..$288ff)
+    * 469 bytes after reused words table ($2922b..$293ff)
+    * 178 bytes after unknown table ($29b4e..$29bff)
+    * 384 bytes at end ($29e80..$29fff)
 
 ### Segments $15..$17 ($2a000..$2ffff)
 
@@ -153,9 +153,9 @@ From this point on, you may edit `Crystalis.s` as you see fit.
 * Dialog message tables, bank $17 ($2e000..$2fbd4)
 * Code for checkpoints and saves ($2fc00..$2ffff)
 * Unused space
-    * ?? bytes at end of bank $15 ($2bf31..$2bfff)
-    * ?? bytes at end of bank $16 ($2df90..$2dfff)
-    * ?? bytes at end of bank $17 ($2fbd5..$2fbff)
+    * 207 bytes at end of bank $15 ($2bf31..$2bfff)
+    * 112 bytes at end of bank $16 ($2df90..$2dfff)
+    *  43 bytes at end of bank $17 ($2fbd5..$2fbff)
 
 ### Segment $18 and $19 ($30000..$33fff)
 
@@ -166,7 +166,7 @@ From this point on, you may edit `Crystalis.s` as you see fit.
 * Unused space
     * 15 bytes at end ($33ff1..$33fff)
 
-### Segment $1a
+### Segment $1a and $1b ($34000..$37fff)
 
 * Code (with some interleaved data)
     * Vector arithmetic ($34409..$344bb)
@@ -181,12 +181,70 @@ From this point on, you may edit `Crystalis.s` as you see fit.
     * MP usage ($35ae8..$35b06)
     * Boss palettes ($35b07..$35b40)
     * Player movement/sword ($35b41..$36070)
+    * Magic routines ($36072..$361c0)
+    * Player movement/sword ($361c9..$36249)
+    * Object action scripts ($3624a..$37e3f)
 * Displacement to direction table ($34000..$343ff)
 * Speed tables ($344bc..$34b7e)
 * Player stats and coin info tables ($34b7f..$34c0d)
 * Powers of two ($35ae0..$35ae7)
-
 * Unused space
-    * TODO VERIFY - 9 bytes after direction table ($34400..$34408)
+    * 9 bytes after direction table ($34400..$34408)
+    * 8 bytes after magic routines ($361c1..$361c8)
+    * 480 bytes at end ($37e40..$37fff)
 
-TODO: 36071..
+### Segment $1c and $1d ($38000..$3bfff)
+
+* Code (with some interleaved data)
+    * Sprite/metasprite routines ($38000..$383d7)
+* Sprite flicker table ($383d8..$3845b)
+* Metasprite table ($3845c..$3bf34)
+* Unused space
+    * 203 bytes at end ($3bf35..$3bfff)
+
+### Fixed segments $fe and $ff
+
+* Code
+    * Equipment/status ($3c008..$3c124)
+    * Audio track management ($3c125..$3c168)
+    * Sprite management ($3c169..$3c221)
+    * Object spawning ($3c25d..$3c40d)
+    * Bank management ($3c40e..$3c435)
+    * NMI/rendering management ($3c436..3c481)
+    * Nametable management ($3c482..$3c7a4)
+    * Location data management ($3c7a5..$3c7d5)
+    * Overflow from segment $10? ($3c7d6..$3c830)
+    * Screen rendering/scrolling ($3c831..$3c8bf)
+    * Main loop ($3c900..$3d122)
+    * Dialog ($3d124..$3d3d9)
+    * Mimics, chests, items, and triggers ($3d3da..$3d88a)
+    * Misc utility for items/dialog ($3d88b..$3d8c6)
+    * Inventory and shops ($3d8c7..$3db27)
+    * Magic/warp ($3db27..$3e0b7)
+    * NPC and object spawning ($3e0b8..$3e3d8)
+    * Location switching ($3e3d9..$3e844)
+    * Player movement ($3e845..$3eb6c)
+    * Map drawing/scrolling ($3eb6d..$3ef54)
+    * Passive/status effects ($3ef55..$3f0a3)
+    * Save file checksums ($3f0a4..$3f2a3)
+    * Reset handler ($3f2a4..$3f3b5)
+    * NMI handler ($3f3b6..$3f423)
+    * IRQ handler ($3f424..$3f8ca)
+    * NMI utility ($3f8cb..$3f9b9)
+    * Controller polling ($3fe80..$3ff43)
+    * Global versions of banked routines ($3ff80..$3ffe2)
+* Powers of two ($3c000..$3c007)
+* Powers of two in reverse ($3c222..$3c229)
+* DMC sample ($3fa00..$3fddf)
+* Vectors ($3fffa..$3ffff)
+* Unused debug code
+    * Something when walking into shops ($3fe00..$3fe2d)
+* Unused space
+    * 50 bytes ($3c22a..$3c25b)
+    * 64 bytes ($3c8c0..$3c8ff)
+    * 70 bytes ($3f9ba..$3f9ff)
+    * 32 bytes ($3fde0..$3fdff)
+    * 74 bytes ($3fe2e..$3fe77), maybe 8 following as well?
+    * 60 bytes ($3ff44..$3ff7f)
+    * 29 bytes ($3ffe3..$3fff9)
+

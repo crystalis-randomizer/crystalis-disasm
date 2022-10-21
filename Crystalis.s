@@ -43548,6 +43548,7 @@ DisplacementToDirectionTable
         $343e0              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
         $343f0              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
 ;;; --------------------------------
+;;; UNUSED
         $34400  xx xx:      xxx #$xx
         $34402  xx xx:      xxx $xx
         $34404  xx xx:      xxx #$xx
@@ -46986,7 +46987,7 @@ UseMagicJump_03_Telepathy
         $3619f  xx xx:      xxx UseMagic_SetGameMode ; unconditional
 ;;; --------------------------------
 UseMagicJump_04_Teleport
-        $361a1  xx xx xx:   xxx $361b0
+        $361a1  xx xx xx:   xxx UseMagic_CheckCurse
         $361a4  xx xx xx:   xxx PlayerMP
         $361a7  xx xx:      xxx #$xx ; 20 MP
         $361a9  xx xx:      xxx UseMagic_InsufficientMP
@@ -46995,17 +46996,19 @@ UseMagic_SetGameMode
         $361ad  xx xx:      xxx GameMode
         $361af  xx:         xxx
 ;;; --------------------------------
+UseMagic_CheckCurse
         $361b0  xx xx xx:   xxx PlayerStatus
         $361b3  xx xx:      xxx #$xx
         $361b5  xx xx:      xxx #$xx
-        $361b7  xx xx:      xxx $xx
-        $361b9  xx:         xxx
-        $361ba  xx:         xxx
-        $361bb  xx xx:      xxx #SFX_CURSOR_ERROR
-        $361bd  xx xx xx:   xxx StartAudioTrack
+        $361b7  xx xx:      xxx + ; $361c0
+        $361b9  xx:          xxx
+        $361ba  xx:          xxx
+        $361bb  xx xx:       xxx #SFX_CURSOR_ERROR
+        $361bd  xx xx xx:    xxx StartAudioTrack
+        ;;;                 -------------------
++       $361c0  xx:         xxx
 ;;; --------------------------------
-        $361c0  xx:         xxx
-;;; --------------------------------
+;;; UNUSED
         $361c1  xx:         xxx
         $361c2  xx:         xxx
         $361c3  xx xx xx:    xxx DrawAllObjectSprites
@@ -50655,6 +50658,7 @@ ObjectAction_70_0c
         $37e2d  xx xx xx:   xxx WriteObjectCoordinatesFrom_34_37
 ;;; --------------------------------
 ;;; This is a table of pairs, stored in $30 and $31 and passed to AddDisplacementVectorLong
+;;; Could be flail guy attack vectors?  But it's very asymmetrical (only 1 positive 2nd value)
 DataTable_37e30 
         $37e30              .byte $xx,$xx
         $37e32              .byte $xx,$xx
@@ -50664,6 +50668,7 @@ DataTable_37e30
         $37e3a              .byte $xx,$xx
         $37e3c              .byte $xx,$xx
         $37e3e              .byte $xx,$xx
+;;; --------------------------------
         $37e40              .byte $xx,$xx
         $37e42              .byte $xx,$xx
         $37e44              .byte $xx,$xx
@@ -50696,6 +50701,7 @@ DataTable_37e30
         $37fe0              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
         $37ff0              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
 RomBank_1c                      ; @@ $8000
+;;; This is something with sprites
         $38000  xx xx:      xxx #$xx
         $38002  xx xx:      xxx #$xx
         $38004  xx xx:      xxx $xx
@@ -50716,7 +50722,7 @@ DrawAllObjectSpritesInternal
         $38012  xx xx:      xxx #$xx
         $38014  xx xx:      xxx + ; $38018
         $38016  xx xx:       xxx #$xx
-       $38018  xx xx:      xxx $xx ; $1e <- $08 & 2 ? 3 : 0
++       $38018  xx xx:      xxx $xx ; $1e <- $08 & 2 ? 3 : 0
         $3801a  xx xx xx:   xxx $xxxx
         $3801d  xx xx xx:   xxx $xxxx
         $38020  xx xx:      xxx #$xx
@@ -56458,7 +56464,7 @@ UpdateEquipmentAndStatus
         $3c082  xx xx xx:   xxx PlayerStatus
         $3c085  xx xx:      xxx + ; $3c08a
         $3c087  xx xx xx:    xxx $3c107
-        ;; --------------------------------
+        ;;                   ----------
 +       $3c08a  xx xx:      xxx #$xx
         $3c08c  xx xx:      xxx #$xx
         $3c08e  xx xx:      xxx ++ ; $3c100
@@ -56528,7 +56534,7 @@ UpdateEquipmentAndStatus
         $3c11b  xx xx xx:   xxx $xxxx
         $3c11e  xx xx xx:   xxx - ; $3c0da
 ;;; --------------------------------
-DataTable_3c121 
+DataTable_3c121                 ; ref'd from above
         $3c121              .byte $xx,$xx,$xx,$xx
 ;;; --------------------------------
 ;;; Starts playing the audio track number specified in register A.
@@ -56709,9 +56715,10 @@ SetSprite0_F0
         $3c220  xx:         xxx
         $3c221  xx:         xxx
         ;; --------------------------------
-PowersOfTwoInReverse
+PowersOfTwoInReverse            ; NOTE: only used by routine immediately above
         $3c222              .byte $xx,$xx,$xx,$xx,$xx,$xx,$xx,$xx
 ;;; --------------------------------
+;;; UNUSED
         $3c22a  xx xx:      xxx $xx
         $3c22c  xx:         xxx
         $3c22d  xx xx:      xxx $xx
@@ -57480,6 +57487,7 @@ LoadMapData_A
         $3c7d3  xx xx:      xxx #$xx
         $3c7d5  xx:         xxx
 ;;; --------------------------------
+;;; Only called from shop code in $21xxx?
         $3c7d6  xx xx:      xxx #$xx
         $3c7d8  xx xx:      xxx $xx,x
         $3c7da  xx xx xx:   xxx $xxxx,x
@@ -57507,6 +57515,7 @@ LoadMapData_A
         $3c809  xx xx:      xxx $xx
         $3c80b  xx:         xxx
 ;;; --------------------------------
+;;; Only called from inventory code in $20xxx?
         $3c80c  xx xx:      xxx #$xx
         $3c80e  xx xx xx:   xxx BankSwitch16k
         $3c811  xx xx:      xxx #$xx

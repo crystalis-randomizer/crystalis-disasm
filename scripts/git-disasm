@@ -5,6 +5,14 @@
 top=$(git rev-parse --show-toplevel)
 cd "$top"
 
+# Make sure the GIT_DISASM_FORCE-banning hook is installed
+if [ ! -x .git/hooks/pre-commit ]; then
+  echo "Installing pre-commit hook" >& 2
+  rm -f .git/hooks/pre-commit
+  ln -s ../../scripts/pre-commit .git/hooks
+  chmod +x .git/hooks/pre-commit
+fi
+
 source=Crystalis.s
 strip="$top/scripts/strip"
 rom=

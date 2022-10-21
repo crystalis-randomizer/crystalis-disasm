@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ -n "$GIT_DISASM_FORCE" ]; then
+  echo 'Refusing to commit while GIT_DISASM_FORCE is set.  Please unset it.' >&2
+  exit 1
+fi

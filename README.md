@@ -28,6 +28,15 @@ all the proprietary data from the dump.
 
 From this point on, you may edit `Crystalis.s` as you see fit.
 
+### Recovering from failures
+
+Note that `git commit` (or `git diff` or `git status`) commands can
+fail when something is wrong with the disassembly.  To ignore the
+validation, run commands with `GIT_DISASM_FORCE=1`.  Using this with
+`git diff` should help troubleshoot the problem, but please do not
+make commits without proper validation (there is a hook to prevent
+this).
+
 ## Rom Map
 
 ### Segment $00..$07 ($00000..$0ffff)

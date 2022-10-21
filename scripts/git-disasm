@@ -40,20 +40,29 @@ case "$action" in
     "$strip" -r "$rom" /dev/stdin
     ;;
   (clean)
+    if [ -n "$GIT_DISASM_FORCE" ]; then
+      # skip the check
+      # TODO - consider making this a pre-commit hook instead?
+      "$strip" /dev/stdin
+      exit 0
+    fi
     tmp=$(mktemp -d --tmpdir "$(basename $source).check.XXXX" || mktemp -d)
     cat > "$tmp/orig"
     if ! "$strip" "$tmp/orig" >| "$tmp/clean"; then
       echo "Strip failed." >& 2
+      echo 'Consider running `GIT_DISASM_FORCE=1 git diff`' >& 2
       exit 5
     fi
     if ! "$strip" -r "$rom" "$tmp/clean" >| "$tmp/smudge"; then
-      echo "Infuse failed."
+      echo "Infuse failed." >& 2
+      echo 'Consider running `GIT_DISASM_FORCE=1 git diff`' >& 2
       # TODO - allow keeping via an env var? (mention this in err)
       rm -rf "$tmp"
       exit 6
     fi
     if ! diff --ignore-space-change -u "$tmp/orig" "$tmp/smudge"; then
       echo "Differences found.  Check $tmp for comparison" >& 2
+      echo 'Consider running `GIT_DISASM_FORCE=1 git diff`' >& 2
       exit 7
     fi
     cat "$tmp/clean"

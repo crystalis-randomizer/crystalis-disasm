@@ -107,7 +107,9 @@ sub infuse { # aka. smudge
   print STDOUT ";;; smudged\n";
   sub checkAddress {
     my $addr = $_[0];
-    die sprintf('Got backwards address $%x after $%x', $addr, $curaddr) if $addr < $curaddr;
+    die sprintf('Got backwards address $%x after $%x' .
+                  ". Consider using `GIT_DISASM_FORCE=1 git diff`\n",
+                $addr, $curaddr) if $addr < $curaddr;
     return if $addr == $curaddr;
     printf STDERR "WARNING: Missing %d bytes at %x\n", ($addr - $curaddr), $curaddr;
     while ($curaddr < $addr) {

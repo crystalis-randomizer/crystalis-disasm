@@ -8,8 +8,9 @@ cd "$top"
 # Make sure the GIT_DISASM_FORCE-banning hook is installed
 if [ ! -x .git/hooks/pre-commit ]; then
   echo "Installing pre-commit hook" >& 2
+  mkdir -p .git/hooks
   rm -f .git/hooks/pre-commit
-  ln -s ../../scripts/pre-commit .git/hooks
+  ln -s ../../scripts/pre-commit .git/hooks/pre-commit
   chmod +x .git/hooks/pre-commit
 fi
 
@@ -54,7 +55,7 @@ case "$action" in
       "$strip" /dev/stdin
       exit 0
     fi
-    tmp=$(mktemp -d --tmpdir "$(basename $source).check.XXXX" || mktemp -d)
+    tmp=$(mktemp -d --tmpdir "$(basename $source).check.XXXX" 2>/dev/null || mktemp -d)
     cat > "$tmp/orig"
     if ! "$strip" "$tmp/orig" >| "$tmp/clean"; then
       echo "Strip failed." >& 2

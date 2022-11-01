@@ -1,4 +1,4 @@
 [filter "disasm"]
-        clean = git-disasm --clean -f %f
-        smudge = git-disasm --smudge -f %f
-        required
+    clean = git-disasm --clean -f %f
+    smudge = git-disasm --smudge -f %f
+    required

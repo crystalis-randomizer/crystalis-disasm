@@ -1,17 +1,19 @@
 #!/bin/bash
-
 # Usage: git-disasm --clean|--smudge < input > output
 
 top=$(git rev-parse --show-toplevel)
 cd "$top"
 
+scriptpath=$top/scripts
+hookpath=`git rev-parse --git-path hooks`
+
 # Make sure the GIT_DISASM_FORCE-banning hook is installed
-if [ ! -x .git/hooks/pre-commit ]; then
+if [ ! -x $hookpath/pre-commit ]; then
   echo "Installing pre-commit hook" >& 2
-  mkdir -p .git/hooks
-  rm -f .git/hooks/pre-commit
-  ln -s ../../scripts/pre-commit .git/hooks/pre-commit
-  chmod +x .git/hooks/pre-commit
+  mkdir -p $hookpath
+  rm -f $hookpath/pre-commit
+  ln -s $scriptpath/pre-commit $hookpath/pre-commit
+  chmod +x $hookpath/pre-commit
 fi
 
 source=Crystalis.s
